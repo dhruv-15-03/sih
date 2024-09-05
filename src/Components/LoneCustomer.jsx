@@ -46,7 +46,7 @@ const LoneCustomer = () => {
             const sensorData = parseFloat(snapshot.val()); // Ensure it's a number
             if (!isNaN(sensorData)) {
                 console.log(sensorData)
-              setAlfo((100-(sensorData>20?100:sensorData*5)));
+              setAlfo((100-(sensorData>20?0:sensorData*5)));
               console.log(alfo,'.......')
             } else {
               console.error("Sensor data is not a valid number:", sensorData);
