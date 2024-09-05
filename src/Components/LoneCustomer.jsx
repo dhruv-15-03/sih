@@ -5,7 +5,6 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.3/firebase
 import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-database.js";
 import { blue } from '@mui/material/colors';
 
-var alfo=0;
 
 
 const isAlert=false
@@ -38,12 +37,7 @@ const LoneCustomer = () => {
     const app = initializeApp(firebaseConfig);
     const database = getDatabase(app);
     
-    // Function to map value from 4-20 cm to 0-100 scale
-    function mapValue(value, minOutput, maxOutput) {
-        const minInput = 4;  // 4 cm is the minimum value
-        const maxInput = 20; // 20 cm is the maximum value
-        return ((value - minInput) * (maxOutput - minOutput)) / (maxInput - minInput) + minOutput;
-    }
+    
     async function fetchAndUpdateData() {
         try {
           const sensorDataRef = ref(database, 'sensor1_data');
@@ -51,9 +45,8 @@ const LoneCustomer = () => {
           if (snapshot.exists()) {
             const sensorData = parseFloat(snapshot.val()); // Ensure it's a number
             if (!isNaN(sensorData)) {
-              const mappedValue = mapValue(sensorData, 0, 100);
-              console.log(mappedValue)
-              setAlfo(mappedValue % 100);
+                console.log(sensorData)
+              setAlfo((100-(sensorData>20?100:sensorData*5)));
               console.log(alfo,'.......')
             } else {
               console.error("Sensor data is not a valid number:", sensorData);
