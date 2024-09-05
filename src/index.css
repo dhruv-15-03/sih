@@ -11,3 +11,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.teamname{
+  font-size:35px;
+  font-weight: 200px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+
+
+}
+.home-des{
+  font-family: 'Courier New', Courier, monospace;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
