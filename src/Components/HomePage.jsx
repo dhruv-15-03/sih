@@ -14,7 +14,7 @@ const userData=[
     'med2':36
   },
   {
-    'name':'Mukesh Shamrma',
+    'name':'Mukesh Sharma',
     'ward':435,
     'med1':87,
     'med2':55
