@@ -1,7 +1,8 @@
 import {  Box, Button, IconButton, Modal, TextField } from '@mui/material'
-import { useFormik } from 'formik'
+import {  useFormik } from 'formik'
 import React from 'react'
 import CloseIcon from '@mui/icons-material/Close';
+import { insert } from '../JS/insert';
 
 const style = {
     position: 'absolute',
@@ -20,19 +21,20 @@ const style = {
 const NewCusModal = ({handleClose,open}) => {
     const handleSubmit=(values)=>{
         console.log("values",values)
-        
+        insert(values)
     }
     const formik=useFormik(
         {
             initialValues:{
                 name:"",
                 ward:"",
-                blood:0,
-                glucose:0
+                med1:0,
+                med2:0
 
             },
             onSubmit:(values)=>{
                 console.log(values)
+                insert(values)
             }
         }
     )
@@ -74,18 +76,18 @@ const NewCusModal = ({handleClose,open}) => {
                 />
                 <TextField
                 fullWidth
-                id="blood"
-                name='blood'
-                label="blood"
-                value={formik.values.blood}
+                id="med1"
+                name='med1'
+                label="med1"
+                value={formik.values.med1}
                 onChange={formik.handleChange}
                 />
                 <TextField
                 fullWidth
-                id="glucose"
-                name='glucose'
-                label="glucose"
-                value={formik.values.glucose}
+                id="med2"
+                name='med2'
+                label="med2"
+                value={formik.values.med2}
                 onChange={formik.handleChange}
                 />
             </div>

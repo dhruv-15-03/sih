@@ -6,12 +6,21 @@ import Progressbar from './Progressbar';
 import { useNavigate } from 'react-router';
 
 
-const New = ({item}) => {
+const New = ({item,value}) => {
+  console.log(value)
   const navigate=useNavigate();
-  const handleNavigate=()=>{
-    navigate('/user')
+  const handleNavigate=(item)=>{
+    console.log("Inside Navigate")
+    navigate('/user',{state:{item}})
   }
-    
+    const check=()=>{
+      if(item.med1<10||item.med2<10){
+        alert(item.name+" is running low on medicines")
+      }
+      if(value&&value<10){
+        alert(item.name+' is running low on medicine')
+      }
+    }
     const[anchorEl,setAnchorEl]=React.useState(null);
      const open=Boolean(anchorEl);
      const handleClick=(event)=>{
@@ -24,8 +33,8 @@ const New = ({item}) => {
     <Card>
         <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe" onClick={handleNavigate}>
-            P
+          <Avatar sx={{ bgcolor: red[500],cursor:'pointer' }} aria-label="recipe"  onClick={()=>handleNavigate(item)}>
+            {item.name[0]}
           </Avatar>
         }
         action={
@@ -52,17 +61,18 @@ const New = ({item}) => {
                          </Menu>
           </IconButton> 
         }
-        title="RAKESH "
-        subheader="Ward No - 512"
+        title={item.name}
+        subheader= {"Ward No - "+item.ward}
       />
-      <CardContent>
+      <CardContent onClick={check()}>
             <Typography variant="h5" component="div" gutterBottom>
               DRIP LEVEL             </Typography>
-            {typeof(item)==='number'?<div className=''>
-                <Progressbar  value={item} />
+            {value?<div className=''>
+                <Progressbar  value={value} />
                 </div>:<div className=''>
-            <Progressbar label='Blood' value={item[0]} />
-            <Progressbar label='Glucose' value={item[1]} />
+                  
+            <Progressbar label='med1' value={item.med1} />
+            <Progressbar label='med2' value={item.med2} />
             </div>}
           </CardContent>
     </Card>

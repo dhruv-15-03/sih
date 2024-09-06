@@ -4,6 +4,7 @@ import New from './New'
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js";
 import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-database.js";
 import { blue } from '@mui/material/colors';
+import { useLocation } from 'react-router-dom';
 
 
 
@@ -43,7 +44,7 @@ const LoneCustomer = () => {
           const sensorDataRef = ref(database, 'sensor1_data');
           const snapshot = await get(sensorDataRef);
           if (snapshot.exists()) {
-            const sensorData = parseFloat(snapshot.val()); // Ensure it's a number
+            const sensorData = parseFloat(snapshot.val()); 
             if (!isNaN(sensorData)) {
                 console.log(sensorData)
               setAlfo((100-(sensorData>20?0:sensorData*5)));
@@ -65,12 +66,14 @@ const LoneCustomer = () => {
     // Set an interval to refresh the data every 2 seconds
     setInterval(fetchAndUpdateData, 2000);
 
-
+    const location=useLocation();
+    const Data=location.state
+    console.log(Data.item)
     
     useEffect(() => {
-        fetchAndUpdateData(); // Initial fetch
-        const intervalId = setInterval(fetchAndUpdateData, 2000); // Refresh data every 2 seconds
-        return () => clearInterval(intervalId); // Cleanup on unmount
+        fetchAndUpdateData(); 
+        const intervalId = setInterval(fetchAndUpdateData, 2000); 
+        return () => clearInterval(intervalId); 
       }, []);
     
       useEffect(() => {
@@ -82,17 +85,18 @@ const LoneCustomer = () => {
     if(isAlert){
         alert("Needed Help")
     }
+    console.log(item)
   return (
-    <div >
+    <div className='min-h-screen bg-center bg-no-repeat bg-cover' style={{ backgroundImage: `url('https://t3.ftcdn.net/jpg/06/62/42/88/360_F_662428841_V8uKlmNKKv0wlGwPkxXsUB7N9yA0g3N9.jpg')` }}>
         <h1 className='text-center teamname' >
             Team Dynamic
         </h1>
     <Card sx={{bgcolor:blue[50]}} className="my-10 w-[100%] justify-center justify-items-center" >
             <div className="rounded-md">
                 <div className="p-5">
-                    <div className='pt-4 text-center'>
-                        <h1 className="py-1 text-xl font-bold">Mr. Rakesh</h1>
-                        <p>Room No 512</p>
+                    <div className='pt-3 text-center'>
+                        <h1 className="py-1 text-xl font-bold">{Data.item.name}</h1>
+                        <p className='pt-2'>{"Ward No - "+Data.item.ward}</p>
                     </div>
                     <div style={{
       display: 'flex',
@@ -118,7 +122,7 @@ const LoneCustomer = () => {
       </ul>
     </div>
                     <div className='pt-5 text-center'>
-                        <span>A heart patient admitted because of Chest Pain</span>
+                        <span className='font-bold'>A heart patient admitted because of Chest Pain</span>
                         <Button
       sx={{
         borderRadius: "20px",
@@ -151,20 +155,20 @@ const LoneCustomer = () => {
                     <div className="flex justify-center">
                         {value==="med1"?(<div className="space-y-5 w-[70%] my-10 " >
                             {true&&<div  className="border rounded-md border-slate-100">
-                                <New item={item}/>
+                                <New item={Data.item} value={item}/>
                                 </div>}
                         </div>)
                         :value==="med2"?(<div className="space-y-5 w-[70%] my-10 " >
                             {true&&<div  className="border rounded-md border-slate-100">
-                                <New item={item}/>
+                                <New item={Data.item} value={Data.item.med1} />
                                 </div>}
                         </div>):value==="med3"?(<div className="space-y-5 w-[70%] my-10 " >
                             {true&&<div  className="border rounded-md border-slate-100">
-                                <New item={45}/>
+                                <New item={Data.item} value={Data.item.med2}/>
                                 </div>}
                         </div>) :value==="med4"?(<div className="space-y-5 w-[70%] my-10 " >
                             {true&&<div  className="border rounded-md border-slate-100">
-                                <New item={item}/>
+                                <New item={Data.item} value={67}/>
                                 </div>}
                         </div>) :(
                             <div>Further medicines here....</div>
