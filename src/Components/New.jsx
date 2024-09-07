@@ -13,14 +13,14 @@ const New = ({item,value}) => {
     console.log("Inside Navigate")
     navigate('/user',{state:{item}})
   }
-    const check=()=>{
-      if(item.med1<10||item.med2<10){
-        alert(item.name+" is running low on medicines")
-      }
-      if(value&&value<10){
-        alert(item.name+' is running low on medicine')
-      }
-    }
+    // const check=()=>{
+    //   if(item.med1<10||item.med2<10){
+    //     alert(item.name+ ' at ward no '+ item.ward+" is running low on medicines")
+    //   }
+    //   if(value&&value<10){
+    //     alert(item.name+ ' at ward no '+ item.ward+' is running low on medicine')
+    //   }
+    // }
     const[anchorEl,setAnchorEl]=React.useState(null);
      const open=Boolean(anchorEl);
      const handleClick=(event)=>{
@@ -64,7 +64,7 @@ const New = ({item,value}) => {
         title={item.name}
         subheader= {"Ward No - "+item.ward}
       />
-      <CardContent onClick={check()}>
+      <CardContent >
             <Typography variant="h5" component="div" gutterBottom>
               DRIP LEVEL             </Typography>
             {value?<div className=''>
